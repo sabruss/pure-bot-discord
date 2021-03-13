@@ -31,8 +31,5 @@ client.on('message', async message => {
     }
 });
 
-try {
-    await client.login(process.env.BOT_TOKEN || '');
-} catch (e) {
-    console.error(e)
-}
+ client.login(process.env.BOT_TOKEN || '').catch(e => console.error(e))
+
