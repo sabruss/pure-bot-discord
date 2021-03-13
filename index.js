@@ -7,7 +7,7 @@ client.on('ready', () => {
 });
 
 client.on('message', async message => {
-    if (!(message.guild.id === '819276769693401099' && message.channel.id === '819276770343387150')) {
+    if (!(message.guild.id === '819276769693401099' && message.channel.type === 'text' && message.channel.id === '819276770343387150')) {
         return;
     }
 
