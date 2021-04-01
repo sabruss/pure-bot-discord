@@ -1,10 +1,12 @@
 const Discord = require('discord.js');
 const client = new Discord.Client();
 require("dotenv").config();
+const config = require('./config');
 
 client.on('ready', () => {
     console.log(`Logged in as ${client.user.tag}!`);
 });
+
 
 client.on('message', async message => {
 
@@ -12,7 +14,16 @@ client.on('message', async message => {
         return;
     }
 
-    if (!(message.guild.id === '819276769693401099' && message.channel.id === '819276770343387150')) {
+    if (!config.guilds.includes(message.guild.id)) {
+        return;
+    }
+
+    if (checkFirstApril() && (!config.blackListCategoryChannels.includes(message.channel.parentID))) {
+        await message.react(randomPoisson());
+    }
+
+
+    if (!config.channels.includes(message.channel.id)) {
         return;
     }
 
@@ -31,5 +42,17 @@ client.on('message', async message => {
     }
 });
 
- client.login(process.env.BOT_TOKEN || '').catch(e => console.error(e))
+client.login(process.env.BOT_TOKEN || '').catch(e => console.error(e))
 
+
+function randomPoisson() {
+    const items = ['🐟', '🐡', '🐠']
+    return items[Math.floor(Math.random() * items.length)];
+}
+
+function checkFirstApril() {
+    const date = new Date()
+    const day = date.getDate()
+    const month = date.getMonth() + 1
+    return day === 1 && month === 4;
+}
