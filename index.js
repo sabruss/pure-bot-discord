@@ -28,7 +28,9 @@ client.on('message', async message => {
     }
 
     if (message.deletable) {
-        console.log(`Message to delete: [${message.id}] from ${message.author.tag} : \`${message.content}\``)
+        if(!message.author.bot) {
+         console.log(`Message to delete: [${message.id}] from ${message.author.tag} : \`${message.content}\``)
+        }
         try {
             await message.delete({
                 timeout: 10000,
