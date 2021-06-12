@@ -1,2 +1,2 @@
 web: echo "useless"
-service: node index.js
+service: node index.mjs
