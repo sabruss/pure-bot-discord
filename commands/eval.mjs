@@ -2,8 +2,8 @@ import {Client} from 'discord.js'
 import {inspect} from 'util'
 
 export default {
-    name: 'eval',
-    description: 'Eval some code',
+    name: 'pure',
+    description: 'Admin only',
     options: [
         {
             name: 'code',
