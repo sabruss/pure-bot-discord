@@ -10,8 +10,11 @@
   "author": "",
   "license": "ISC",
   "dependencies": {
-    "discord.js": "^13.0.0-dev.99ff7151379fe03a1cfd52f252c0e6fc892d7776",
+    "discord.js": "^13.0.1",
     "dotenv": "^8.2.0",
     "winston": "^3.3.3"
+  },
+  "engines": {
+    "node": "16.x"
   }
 }

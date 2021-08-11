@@ -1,4 +1,4 @@
-import {Client} from 'discord.js'
+import {Client, CommandInteraction} from 'discord.js'
 import {inspect} from 'util'
 
 export default {
@@ -15,22 +15,28 @@ export default {
     ownerOnly: true,
     /**
      * @param {CommandInteraction} interaction
-     * @param {Collection<ApplicationCommandOption>} options
      * @param {Client} client
      */
-    execute: async ({interaction, args: {code}, client}) => {
+    execute: async ({interaction, client}) => {
 
         if (interaction.user.id !== process.env.BOT_OWNER) {
             return;
         }
-        let evaled = eval(code);
-        if (typeof evaled !== "string")
-            evaled = inspect(evaled);
         try {
-            await interaction.reply({content: `${clean(evaled)}`, code: 'xl', ephemeral: true})
-        } catch (err) {
-            await interaction.reply({content: `ERROR: \n${clean(err)}`, code: 'xl', ephemeral: true})
+            const code = interaction.options.getString('code', true)
+
+            let evaled = eval(code);
+            if (typeof evaled !== "string")
+                evaled = inspect(evaled);
+            try {
+                await interaction.reply({content: `${clean(evaled)}`, code: 'xl', ephemeral: true})
+            } catch (err) {
+                await interaction.reply({content: `ERROR: \n${clean(err)}`, code: 'xl', ephemeral: true})
+            }
+        } catch (e) {
+            await interaction.reply({content: "Failed", ephemeral: true})
         }
+
     }
 }
 
